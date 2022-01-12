@@ -17,6 +17,7 @@ argfile*
 pom.xml
 activemq-data/
 
+src/main/resources/application.properties
 classes/
 /build
 buildSrc/build
