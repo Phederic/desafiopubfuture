@@ -1,6 +1,6 @@
-	package br.com.financas.financas.pessoais.controller;
+package br.com.financas.financas.pessoais.controller;
 
-		import java.net.URI;
+import java.net.URI;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -36,45 +36,47 @@ public class ContaController {
 
 	@Autowired
 	private ContaRepository contaRepository;
-	
+
 	@GetMapping
 	@Cacheable(value = "listaDeContas")
-	public Page<ContaDto> lista(@PageableDefault(sort = "id", direction = Direction.ASC, page=0, size=10) Pageable paginacao){
+	public Page<ContaDto> lista(
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
 		Page<Conta> contas = contaRepository.findAll(paginacao);
 		return ContaDto.converter(contas);
 	}
-	
+
 	@PostMapping
 	@Transactional
-	@CacheEvict(value = "listaDeConta" , allEntries = true)
+	@CacheEvict(value = "listaDeConta", allEntries = true)
 	public ResponseEntity<ContaDto> cadastrar(@RequestBody @Valid ContaForm form, UriComponentsBuilder uriBuilder) {
 		Conta conta = form.converter();
 		contaRepository.save(conta);
-		
+
 		URI uri = uriBuilder.path("/conta/{id}").buildAndExpand(conta.getContaId()).toUri();
 		return ResponseEntity.created(uri).body(new ContaDto(conta));
 	}
+
 	@GetMapping("/{id}")
-	public ResponseEntity<ContaDto> detalhar(@PathVariable Integer id ){
+	public ResponseEntity<ContaDto> detalhar(@PathVariable Integer id) {
 		Optional<Conta> conta = contaRepository.findById(id);
-		if(conta.isPresent()) {
-		return ResponseEntity.ok(new ContaDto(conta.get()));
+		if (conta.isPresent()) {
+			return ResponseEntity.ok(new ContaDto(conta.get()));
+		}
+		return ResponseEntity.notFound().build();
 	}
-	return ResponseEntity.notFound().build();
-	}
-	
+
 	@PutMapping("/{id}")
 	@Transactional
-	@CacheEvict(value = "listaDeConta" , allEntries = true)
-	public ResponseEntity<ContaDto> atualizar(@PathVariable Integer id, @RequestBody @Valid AtualizacaoContaForm form ){
+	@CacheEvict(value = "listaDeConta", allEntries = true)
+	public ResponseEntity<ContaDto> atualizar(@PathVariable Integer id, @RequestBody @Valid AtualizacaoContaForm form) {
 		Optional<Conta> contaAtt = contaRepository.findById(id);
-		if(contaAtt.isPresent()) {
+		if (contaAtt.isPresent()) {
 			Conta conta = form.atualizar(id, contaRepository);
 			return ResponseEntity.ok(new ContaDto(conta));
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@Transactional
 	@CacheEvict(value = "listaDeConta" , allEntries = true)
@@ -86,8 +88,4 @@ public class ContaController {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
-	
-	
-	
 }
