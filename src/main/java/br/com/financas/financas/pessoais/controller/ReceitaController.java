@@ -1,13 +1,18 @@
 package br.com.financas.financas.pessoais.controller;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,14 +40,17 @@ public class ReceitaController {
 	
 	
 	@GetMapping
-	public List<ReceitaDto> lista() {
-				List<Receita> receitas = receitaRepository.findAll();
+	@Cacheable(value = "listaDeReceita")
+	public Page<ReceitaDto> lista(@PageableDefault(sort = "id", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
+		
+				Page<Receita> receitas = receitaRepository.findAll(paginacao);
 		return ReceitaDto.converter(receitas);
 		
 	}	
 	
 	@PostMapping
 	@Transactional
+	@CacheEvict(value = "listaDeReceita" , allEntries = true)
 	public ResponseEntity<ReceitaDto> cadastrar(@RequestBody @Valid ReceitaForm form, UriComponentsBuilder uriBuilder) {
 		Receita receita = form.converter();
 		receitaRepository.save(receita);
@@ -63,6 +71,7 @@ public class ReceitaController {
 	
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeReceita" , allEntries = true)
 	public ResponseEntity<ReceitaDto> atualizar(@PathVariable Integer id, @RequestBody @Valid AtualizacaoReceitaForm form ){
 		Optional<Receita> receitaAtt = receitaRepository.findById(id);
 		if(receitaAtt.isPresent()) {
@@ -74,6 +83,7 @@ public class ReceitaController {
 		
 	@DeleteMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeReceita" , allEntries = true)
 	public ResponseEntity<?> remover(@PathVariable Integer id){
 		Optional<Receita> receitaDel = receitaRepository.findById(id);
 		if(receitaDel.isPresent()) {

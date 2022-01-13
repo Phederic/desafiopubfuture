@@ -2,6 +2,8 @@ package br.com.financas.financas.pessoais.modelo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,7 +21,7 @@ public class Despesa {
 	private BigDecimal valor;
 	private LocalDate dataPagamento = LocalDate.now();
 	private LocalDate dataPagamentoEsperado;
-	@ManyToOne
+	@ManyToOne()
 	private Conta conta;
 	@Enumerated(EnumType.STRING)
 	private TipoDespesa tipoDespesa;

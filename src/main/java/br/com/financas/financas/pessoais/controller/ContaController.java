@@ -1,13 +1,18 @@
-package br.com.financas.financas.pessoais.controller;
+	package br.com.financas.financas.pessoais.controller;
 
 		import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,13 +38,15 @@ public class ContaController {
 	private ContaRepository contaRepository;
 	
 	@GetMapping
-	public List<ContaDto> lista(){
-		List<Conta> contas = contaRepository.findAll();
+	@Cacheable(value = "listaDeContas")
+	public Page<ContaDto> lista(@PageableDefault(sort = "id", direction = Direction.ASC, page=0, size=10) Pageable paginacao){
+		Page<Conta> contas = contaRepository.findAll(paginacao);
 		return ContaDto.converter(contas);
 	}
 	
 	@PostMapping
 	@Transactional
+	@CacheEvict(value = "listaDeConta" , allEntries = true)
 	public ResponseEntity<ContaDto> cadastrar(@RequestBody @Valid ContaForm form, UriComponentsBuilder uriBuilder) {
 		Conta conta = form.converter();
 		contaRepository.save(conta);
@@ -48,8 +55,8 @@ public class ContaController {
 		return ResponseEntity.created(uri).body(new ContaDto(conta));
 	}
 	@GetMapping("/{id}")
-	public ResponseEntity<ContaDto> detalhar(@PathVariable Integer contaId ){
-		Optional<Conta> conta = contaRepository.findById(contaId);
+	public ResponseEntity<ContaDto> detalhar(@PathVariable Integer id ){
+		Optional<Conta> conta = contaRepository.findById(id);
 		if(conta.isPresent()) {
 		return ResponseEntity.ok(new ContaDto(conta.get()));
 	}
@@ -58,6 +65,7 @@ public class ContaController {
 	
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeConta" , allEntries = true)
 	public ResponseEntity<ContaDto> atualizar(@PathVariable Integer id, @RequestBody @Valid AtualizacaoContaForm form ){
 		Optional<Conta> contaAtt = contaRepository.findById(id);
 		if(contaAtt.isPresent()) {
@@ -69,6 +77,7 @@ public class ContaController {
 	
 	@DeleteMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeConta" , allEntries = true)
 	public ResponseEntity<?> remover(@PathVariable Integer id){
 		Optional<Conta> contaDel = contaRepository.findById(id);
 		if(contaDel.isPresent()) {
@@ -77,6 +86,7 @@ public class ContaController {
 		}
 		return ResponseEntity.notFound().build();
 	}
+	
 	
 	
 	

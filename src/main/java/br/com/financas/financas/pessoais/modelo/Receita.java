@@ -62,13 +62,13 @@ public class Receita {
 	public void setTipoReceita(TipoReceita tipoReceita) {
 		this.tipoReceita = tipoReceita;
 	}
+	
 	public Conta getConta() {
 		return conta;
 	}
 	public void setConta(Conta conta) {
 		this.conta = conta;
 	}
-	
 	public Receita() {
 	}
 	public Receita(BigDecimal valor, String descricao,  TipoReceita tipoReceita) {

@@ -2,8 +2,10 @@ package br.com.financas.financas.pessoais.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import br.com.financas.financas.pessoais.modelo.Conta;
 import br.com.financas.financas.pessoais.modelo.Despesa;
@@ -34,6 +36,7 @@ public class DespesaDto {
 		return tipoDespesa;
 	}
 	
+	
 	public Conta getConta() {
 		return conta;
 	}
@@ -46,7 +49,7 @@ public class DespesaDto {
 		this.conta = despesa.getConta();
 	}
 	
-	public static List<DespesaDto> converter(List<Despesa> despesas) {
-		return despesas.stream().map(DespesaDto::new).collect(Collectors.toList());
+	public static Page<DespesaDto> converter(Page<Despesa> despesas) {
+		return despesas.map(DespesaDto::new);
 	}
 }

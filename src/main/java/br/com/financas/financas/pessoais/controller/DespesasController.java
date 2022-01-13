@@ -1,13 +1,18 @@
 package br.com.financas.financas.pessoais.controller;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,13 +38,15 @@ public class DespesasController {
 	private DespesasRepository despesasRepository;
 	
 	@GetMapping
-	public List<DespesaDto> lista(){
-		List<Despesa> despesa = despesasRepository.findAll();
+	@Cacheable(value = "listaDeDespesas")
+	public Page<DespesaDto> lista(@PageableDefault(sort = "id", direction = Direction.ASC, page=0, size=10) Pageable paginacao) {
+		Page<Despesa> despesa = despesasRepository.findAll(paginacao);
 		return DespesaDto.converter(despesa);
 	}
 	
 	@PostMapping
 	@Transactional
+	@CacheEvict(value = "listaDeDespesa" , allEntries = true)
 	public ResponseEntity<DespesaDto> cadastrar(@RequestBody @Valid DespesaForm form, UriComponentsBuilder uriBuilder) {
 		Despesa despesa = form.converter();
 		despesasRepository.save(despesa);
@@ -60,6 +67,7 @@ public class DespesasController {
 
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeDespesa" , allEntries = true)
 	public ResponseEntity<DespesaDto> atualizar(@PathVariable Integer id, @RequestBody @Valid AtualizacaoDespesaForm form ){
 		Optional<Despesa> despesaAtt = despesasRepository.findById(id);
 		if(despesaAtt.isPresent()) {
@@ -71,6 +79,7 @@ public class DespesasController {
 	
 	@DeleteMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeDespesa" , allEntries = true)
 	public ResponseEntity<?> remover(@PathVariable Integer id){
 		Optional<Despesa> despesaDel = despesasRepository.findById(id);
 		if(despesaDel.isPresent()) {

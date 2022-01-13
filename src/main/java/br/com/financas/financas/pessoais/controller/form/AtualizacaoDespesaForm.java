@@ -2,8 +2,8 @@ package br.com.financas.financas.pessoais.controller.form;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.financas.financas.pessoais.modelo.Conta;
 import br.com.financas.financas.pessoais.modelo.Despesa;
@@ -16,7 +16,7 @@ public class AtualizacaoDespesaForm {
 	private BigDecimal valor;
 	private LocalDate dataPagamento;
 	private LocalDate dataPagamentoEsperado;
-	private Conta conta;
+	private Conta conta ;
 	private TipoDespesa tipoDespesa;
 	
 	
@@ -44,6 +44,9 @@ public class AtualizacaoDespesaForm {
 	public void setDataPagamentoEsperado(LocalDate dataPagamentoEsperado) {
 		this.dataPagamentoEsperado = dataPagamentoEsperado;
 	}
+
+	
+	
 	public Conta getConta() {
 		return conta;
 	}

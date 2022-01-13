@@ -1,8 +1,8 @@
 package br.com.financas.financas.pessoais.dto;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import br.com.financas.financas.pessoais.modelo.Conta;
 import br.com.financas.financas.pessoais.modelo.TipoConta;
@@ -34,9 +34,11 @@ public class ContaDto {
 		return tipoConta;
 	}
 	
-	public static List<ContaDto> converter(List<Conta> conta) {
-		return conta.stream().map(ContaDto::new).collect(Collectors.toList());
+	public static Page<ContaDto> converter(Page<Conta> conta) {
+		return conta.map(ContaDto::new); 
 	}
 	
-	
-}
+
+		
+	}
+

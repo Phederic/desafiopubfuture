@@ -2,8 +2,10 @@ package br.com.financas.financas.pessoais.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import br.com.financas.financas.pessoais.modelo.Conta;
 import br.com.financas.financas.pessoais.modelo.Receita;
@@ -38,6 +40,7 @@ public class ReceitaDto {
 		return dataRecebimentoEsperado;
 	}
 	
+	
 	public Conta getConta() {
 		return conta;
 	}
@@ -53,8 +56,8 @@ public class ReceitaDto {
 	
 	
 	
-	public static List<ReceitaDto> converter(List<Receita> receitas) {
-		return receitas.stream().map(ReceitaDto::new).collect(Collectors.toList());
+	public static Page<ReceitaDto> converter(Page<Receita> receitas) {
+		return receitas.map(ReceitaDto::new); 
 	}
 	
 	

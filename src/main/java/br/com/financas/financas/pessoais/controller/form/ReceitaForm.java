@@ -1,6 +1,8 @@
 package br.com.financas.financas.pessoais.controller.form;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -18,7 +20,7 @@ public class ReceitaForm {
 	private TipoReceita tipoReceita;
 	@NotNull @NotEmpty @Length(min = 10)
 	private String descricao;
-	private Conta tipoConta;
+	private Conta conta;
 
 	public BigDecimal getValor() {
 		return valor;
@@ -45,12 +47,12 @@ public class ReceitaForm {
 	}
 	
 
-	public Conta getTipoConta() {
-		return tipoConta;
+	public Conta getConta() {
+		return conta;
 	}
 
-	public void setTipoConta(Conta tipoConta) {
-		this.tipoConta = tipoConta;
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 
 	public Receita converter() {
