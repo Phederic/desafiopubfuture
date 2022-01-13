@@ -1,8 +1,6 @@
 package br.com.financas.financas.pessoais.controller.form;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

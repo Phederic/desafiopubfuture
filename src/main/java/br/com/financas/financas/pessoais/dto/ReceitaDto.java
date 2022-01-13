@@ -2,8 +2,6 @@ package br.com.financas.financas.pessoais.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 
