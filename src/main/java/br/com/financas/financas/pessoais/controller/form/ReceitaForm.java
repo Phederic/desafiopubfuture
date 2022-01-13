@@ -14,11 +14,12 @@ import br.com.financas.financas.pessoais.modelo.Receita;
 import br.com.financas.financas.pessoais.modelo.TipoReceita;
 
 public class ReceitaForm {
-	
-	
+
 	private BigDecimal valor;
 	private TipoReceita tipoReceita;
-	@NotNull @NotEmpty @Length(min = 10)
+	@NotNull
+	@NotEmpty
+	@Length(min = 10)
 	private String descricao;
 	private Conta conta;
 
@@ -45,7 +46,6 @@ public class ReceitaForm {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
 
 	public Conta getConta() {
 		return conta;

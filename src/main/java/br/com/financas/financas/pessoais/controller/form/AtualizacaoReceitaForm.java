@@ -18,35 +18,44 @@ public class AtualizacaoReceitaForm {
 
 	private BigDecimal valor;
 	private TipoReceita tipoReceita;
-	@NotNull @NotEmpty @Length(min = 10)
+	@NotNull
+	@NotEmpty
+	@Length(min = 10)
 	private String descricao;
 	private List<Conta> conta = new ArrayList<>();
+
 	public BigDecimal getValor() {
 		return valor;
 	}
+
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
+
 	public TipoReceita getTipoReceita() {
 		return tipoReceita;
 	}
+
 	public void setTipoReceita(TipoReceita tipoReceita) {
 		this.tipoReceita = tipoReceita;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	
+
 	public List<Conta> getConta() {
 		return conta;
 	}
+
 	public void setConta(List<Conta> conta) {
 		this.conta = conta;
 	}
+
 	public Receita atualizar(Integer id, ReceitaRepository receitaRepository) {
 		Receita receita = receitaRepository.getById(id);
 		receita.setValor(this.valor);
@@ -54,6 +63,5 @@ public class AtualizacaoReceitaForm {
 		receita.setTipoReceita(this.tipoReceita);
 		return receita;
 	}
-	
-	
+
 }

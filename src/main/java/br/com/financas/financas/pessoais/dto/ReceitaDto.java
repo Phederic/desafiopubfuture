@@ -19,31 +19,35 @@ public class ReceitaDto {
 	private LocalDate dataRecebimento;
 	private LocalDate dataRecebimentoEsperado;
 	private Conta conta;
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public BigDecimal getValor() {
 		return valor;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public TipoReceita getTipoReceita() {
 		return tipoReceita;
 	}
-	
+
 	public LocalDate getDataRecebimento() {
 		return dataRecebimento;
 	}
+
 	public LocalDate getDataRecebimentoEsperado() {
 		return dataRecebimentoEsperado;
 	}
-	
-	
+
 	public Conta getConta() {
 		return conta;
 	}
+
 	public ReceitaDto(Receita receita) {
 		this.id = receita.getId();
 		this.valor = receita.getValor();
@@ -53,15 +57,9 @@ public class ReceitaDto {
 		this.dataRecebimentoEsperado = receita.getDataRecebimentoEsperado();
 		this.conta = receita.getConta();
 	}
-	
-	
-	
+
 	public static Page<ReceitaDto> converter(Page<Receita> receitas) {
-		return receitas.map(ReceitaDto::new); 
+		return receitas.map(ReceitaDto::new);
 	}
-	
-	
-	
-	
-	
+
 }
