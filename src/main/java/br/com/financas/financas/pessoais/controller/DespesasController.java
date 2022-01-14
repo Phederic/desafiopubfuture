@@ -28,9 +28,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.financas.financas.pessoais.controller.form.AtualizacaoDespesaForm;
 import br.com.financas.financas.pessoais.controller.form.DespesaForm;
 import br.com.financas.financas.pessoais.dto.DespesaDto;
-import br.com.financas.financas.pessoais.dto.ReceitaDto;
 import br.com.financas.financas.pessoais.modelo.Despesa;
-import br.com.financas.financas.pessoais.modelo.Receita;
 import br.com.financas.financas.pessoais.modelo.TipoDespesa;
 import br.com.financas.financas.pessoais.repository.DespesasRepository;
 
