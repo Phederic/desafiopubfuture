@@ -28,6 +28,7 @@ import br.com.financas.financas.pessoais.controller.form.AtualizacaoDespesaForm;
 import br.com.financas.financas.pessoais.controller.form.DespesaForm;
 import br.com.financas.financas.pessoais.dto.DespesaDto;
 import br.com.financas.financas.pessoais.modelo.Despesa;
+import br.com.financas.financas.pessoais.modelo.TipoDespesa;
 import br.com.financas.financas.pessoais.repository.DespesasRepository;
 
 @RestController
@@ -40,9 +41,14 @@ public class DespesasController {
 	@GetMapping
 	@Cacheable(value = "listaDeDespesas")
 	public Page<DespesaDto> lista(
-			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
-		Page<Despesa> despesa = despesasRepository.findAll(paginacao);
-		return DespesaDto.converter(despesa);
+			@PageableDefault(sort = "ContaId", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao, TipoDespesa tipoDespesa){
+		if(tipoDespesa == null) {
+		Page<Despesa> despesas = despesasRepository.findAll(paginacao);
+		return DespesaDto.converter(despesas);
+     	} else { 
+     		Page<Despesa> despesas =  despesasRepository.findByTipoDespesa(tipoDespesa, paginacao);
+			return DespesaDto.converter(despesas);
+     	}
 	}
 
 	@PostMapping

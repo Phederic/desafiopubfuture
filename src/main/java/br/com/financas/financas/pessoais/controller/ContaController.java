@@ -26,6 +26,7 @@ import br.com.financas.financas.pessoais.controller.form.AtualizacaoContaForm;
 import br.com.financas.financas.pessoais.controller.form.ContaForm;
 import br.com.financas.financas.pessoais.dto.ContaDto;
 import br.com.financas.financas.pessoais.modelo.Conta;
+import br.com.financas.financas.pessoais.modelo.TipoConta;
 import br.com.financas.financas.pessoais.repository.ContaRepository;
 
 @RestController
@@ -37,11 +38,15 @@ public class ContaController {
 
 	@GetMapping
 	public Page<ContaDto> lista(
-			@PageableDefault(sort = "ContaId", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao){
+			@PageableDefault(sort = "ContaId", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao, TipoConta tipoConta){
+		if(tipoConta == null) {
 		Page<Conta> contas = contaRepository.findAll(paginacao);
 		return ContaDto.converter(contas);
+     	} else { 
+     		Page<Conta> contas =  contaRepository.findByTipoConta(tipoConta, paginacao);
+			return ContaDto.converter(contas);
+     	}
 	}
-
 	@PostMapping
 	@Transactional
 	public ResponseEntity<ContaDto> cadastrar(@RequestBody @Valid ContaForm form, UriComponentsBuilder uriBuilder) {

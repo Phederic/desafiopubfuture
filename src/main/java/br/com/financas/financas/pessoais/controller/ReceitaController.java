@@ -28,6 +28,7 @@ import br.com.financas.financas.pessoais.controller.form.AtualizacaoReceitaForm;
 import br.com.financas.financas.pessoais.controller.form.ReceitaForm;
 import br.com.financas.financas.pessoais.dto.ReceitaDto;
 import br.com.financas.financas.pessoais.modelo.Receita;
+import br.com.financas.financas.pessoais.modelo.TipoReceita;
 import br.com.financas.financas.pessoais.repository.ReceitaRepository;
 
 @RestController
@@ -40,11 +41,14 @@ public class ReceitaController {
 	@GetMapping
 	@Cacheable(value = "listaDeReceita")
 	public Page<ReceitaDto> lista(
-			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
-
+			@PageableDefault(sort = "ContaId", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao, TipoReceita tipoReceita){
+		if(tipoReceita == null) {
 		Page<Receita> receitas = receitaRepository.findAll(paginacao);
 		return ReceitaDto.converter(receitas);
-
+     	} else { 
+     		Page<Receita> receitas =  receitaRepository.findByTipoReceita(tipoReceita, paginacao);
+			return ReceitaDto.converter(receitas);
+     	}
 	}
 
 	@PostMapping
