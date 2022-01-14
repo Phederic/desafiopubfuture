@@ -15,11 +15,9 @@ public class ContaDto {
 	private BigDecimal saldo;
 	private String instituicaoFinanceira;
 	private TipoConta tipoConta;
-	
+
 	@Autowired
 	ContaRepository contaRepository;
-	
-	
 
 	public ContaDto(Conta conta) {
 		this.contaId = conta.getContaId();
@@ -43,7 +41,7 @@ public class ContaDto {
 	public TipoConta getTipoConta() {
 		return tipoConta;
 	}
-	
+
 	public void setContaId(Integer contaId) {
 		this.contaId = contaId;
 	}
@@ -64,6 +62,4 @@ public class ContaDto {
 		return conta.map(ContaDto::new);
 	}
 
-	
- 
 }

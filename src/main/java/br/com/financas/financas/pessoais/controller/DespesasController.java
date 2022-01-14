@@ -42,17 +42,19 @@ public class DespesasController {
 	@GetMapping
 	@Cacheable(value = "listaDeDespesas")
 	public Page<DespesaDto> lista(
-			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao, TipoDespesa tipoDespesa, LocalDate primeiraData, LocalDate segundaData){
-		if(tipoDespesa == null) {
-		Page<Despesa> despesas = despesasRepository.findAll(paginacao);
-		return DespesaDto.converter(despesas);
-     	} else if (primeiraData == null && segundaData == null) { 
-     		Page<Despesa> despesas =  despesasRepository.findByTipoDespesa(tipoDespesa, paginacao);
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao,
+			TipoDespesa tipoDespesa, LocalDate primeiraData, LocalDate segundaData) {
+		if (tipoDespesa == null) {
+			Page<Despesa> despesas = despesasRepository.findAll(paginacao);
 			return DespesaDto.converter(despesas);
-     	} else {
-     		Page<Despesa> despesas= despesasRepository.findByDataPagamentoBetween(primeiraData, segundaData, paginacao);
+		} else if (primeiraData == null && segundaData == null) {
+			Page<Despesa> despesas = despesasRepository.findByTipoDespesa(tipoDespesa, paginacao);
 			return DespesaDto.converter(despesas);
-     	}
+		} else {
+			Page<Despesa> despesas = despesasRepository.findByDataPagamentoBetween(primeiraData, segundaData,
+					paginacao);
+			return DespesaDto.converter(despesas);
+		}
 	}
 
 	@PostMapping

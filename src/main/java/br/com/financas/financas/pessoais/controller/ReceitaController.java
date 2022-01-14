@@ -47,11 +47,12 @@ public class ReceitaController {
 		if (tipoReceita == null && primeiraData == null && segundaData == null) {
 			Page<Receita> receitas = receitaRepository.findAll(paginacao);
 			return ReceitaDto.converter(receitas);
-		} else if (primeiraData == null && segundaData == null)  {
+		} else if (primeiraData == null && segundaData == null) {
 			Page<Receita> receitas = receitaRepository.findByTipoReceita(tipoReceita, paginacao);
 			return ReceitaDto.converter(receitas);
-		} else  {
-			Page<Receita> receitas = receitaRepository.findByDataRecebimentoBetween(primeiraData, segundaData, paginacao);
+		} else {
+			Page<Receita> receitas = receitaRepository.findByDataRecebimentoBetween(primeiraData, segundaData,
+					paginacao);
 			return ReceitaDto.converter(receitas);
 		}
 	}

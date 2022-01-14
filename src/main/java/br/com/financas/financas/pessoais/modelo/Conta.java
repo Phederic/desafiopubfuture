@@ -44,11 +44,7 @@ public class Conta {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
+
 	public Integer getContaId() {
 		return contaId;
 	}
@@ -90,5 +86,4 @@ public class Conta {
 	public Conta() {
 	}
 
-		
 }
