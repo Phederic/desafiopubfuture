@@ -41,7 +41,7 @@ public class DespesasController {
 	@GetMapping
 	@Cacheable(value = "listaDeDespesas")
 	public Page<DespesaDto> lista(
-			@PageableDefault(sort = "ContaId", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao, TipoDespesa tipoDespesa){
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao, TipoDespesa tipoDespesa){
 		if(tipoDespesa == null) {
 		Page<Despesa> despesas = despesasRepository.findAll(paginacao);
 		return DespesaDto.converter(despesas);

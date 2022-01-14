@@ -1,6 +1,8 @@
 package br.com.financas.financas.pessoais.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -41,14 +43,18 @@ public class ReceitaController {
 	@GetMapping
 	@Cacheable(value = "listaDeReceita")
 	public Page<ReceitaDto> lista(
-			@PageableDefault(sort = "ContaId", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao, TipoReceita tipoReceita){
-		if(tipoReceita == null) {
-		Page<Receita> receitas = receitaRepository.findAll(paginacao);
-		return ReceitaDto.converter(receitas);
-     	} else { 
-     		Page<Receita> receitas =  receitaRepository.findByTipoReceita(tipoReceita, paginacao);
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao,
+			TipoReceita tipoReceita, LocalDate primeiraData, LocalDate segundaData) {
+		if (tipoReceita == null && primeiraData == null && segundaData == null) {
+			Page<Receita> receitas = receitaRepository.findAll(paginacao);
 			return ReceitaDto.converter(receitas);
-     	}
+		} else if (primeiraData == null && segundaData == null)  {
+			Page<Receita> receitas = receitaRepository.findByTipoReceita(tipoReceita, paginacao);
+			return ReceitaDto.converter(receitas);
+		} else  {
+			Page<Receita> receitas = receitaRepository.findByDataRecebimentoBetween(primeiraData, segundaData, paginacao);
+			return ReceitaDto.converter(receitas);
+		}
 	}
 
 	@PostMapping
