@@ -1,6 +1,7 @@
 package br.com.financas.financas.pessoais.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -27,7 +28,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.financas.financas.pessoais.controller.form.AtualizacaoDespesaForm;
 import br.com.financas.financas.pessoais.controller.form.DespesaForm;
 import br.com.financas.financas.pessoais.dto.DespesaDto;
+import br.com.financas.financas.pessoais.dto.ReceitaDto;
 import br.com.financas.financas.pessoais.modelo.Despesa;
+import br.com.financas.financas.pessoais.modelo.Receita;
 import br.com.financas.financas.pessoais.modelo.TipoDespesa;
 import br.com.financas.financas.pessoais.repository.DespesasRepository;
 
@@ -41,12 +44,15 @@ public class DespesasController {
 	@GetMapping
 	@Cacheable(value = "listaDeDespesas")
 	public Page<DespesaDto> lista(
-			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao, TipoDespesa tipoDespesa){
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao, TipoDespesa tipoDespesa, LocalDate primeiraData, LocalDate segundaData){
 		if(tipoDespesa == null) {
 		Page<Despesa> despesas = despesasRepository.findAll(paginacao);
 		return DespesaDto.converter(despesas);
-     	} else { 
+     	} else if (primeiraData == null && segundaData == null) { 
      		Page<Despesa> despesas =  despesasRepository.findByTipoDespesa(tipoDespesa, paginacao);
+			return DespesaDto.converter(despesas);
+     	} else {
+     		Page<Despesa> despesas= despesasRepository.findByDataPagamentoBetween(primeiraData, segundaData, paginacao);
 			return DespesaDto.converter(despesas);
      	}
 	}

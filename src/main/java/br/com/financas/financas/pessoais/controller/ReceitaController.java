@@ -2,7 +2,6 @@ package br.com.financas.financas.pessoais.controller;
 
 import java.net.URI;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
