@@ -1,5 +1,6 @@
 package br.com.financas.financas.pessoais.controller;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Optional;
 
@@ -88,4 +89,15 @@ public class ContaController {
 		return ResponseEntity.notFound().build();
 	}
 
+	
+	@GetMapping("/soma")
+	public BigDecimal SomaTotalDeSaldo() {
+		Conta conta = new Conta();
+		contaRepository.SaldoTotal().ifPresent(conta::setSaldo);
+		return conta.getSaldo();
+	}
+	
+	
+	
+	
 }
