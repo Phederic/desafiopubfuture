@@ -20,6 +20,35 @@ public class Conta {
 	@Enumerated(EnumType.STRING)
 	private TipoConta tipoConta;
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((contaId == null) ? 0 : contaId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conta other = (Conta) obj;
+		if (contaId == null) {
+			if (other.contaId != null)
+				return false;
+		} else if (!contaId.equals(other.contaId))
+			return false;
+		return true;
+	}
+	
+	
+	
+	
+	
 	public Integer getContaId() {
 		return contaId;
 	}
