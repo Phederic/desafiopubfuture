@@ -119,6 +119,7 @@ public class ReceitaControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(405));
 	}
+
 	@Test
 	public void testModificarComDadosIncorreto() throws Exception {
 		URI uri = new URI("/receita/2");

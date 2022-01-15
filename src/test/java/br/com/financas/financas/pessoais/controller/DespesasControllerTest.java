@@ -1,6 +1,5 @@
 package br.com.financas.financas.pessoais.controller;
 
-
 import java.net.URI;
 
 import org.junit.Test;
@@ -14,13 +13,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 public class DespesasControllerTest {
-	
-	
+
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -32,7 +29,7 @@ public class DespesasControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(201));
 	}
-	
+
 	@Test
 	public void testCadastrarComDadosIncorretos() throws Exception {
 		URI uri = new URI("/despesas");
@@ -59,6 +56,7 @@ public class DespesasControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.delete(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(200));
 	}
+
 	@Test
 	public void testDeletarComIdQueNaoExiste() throws Exception {
 		URI uri = new URI("/despesas/70");
@@ -67,6 +65,7 @@ public class DespesasControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.delete(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(404));
 	}
+
 	@Test
 	public void testDeletarSemId() throws Exception {
 		URI uri = new URI("/despesas");
@@ -75,7 +74,6 @@ public class DespesasControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.delete(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(405));
 	}
-
 
 	@Test
 	public void testPesquisarPorID() throws Exception {
@@ -94,7 +92,7 @@ public class DespesasControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(200));
 	}
-	
+
 	@Test
 	public void testModificarComIdQueNaoExiste() throws Exception {
 		URI uri = new URI("/despesas/88");
@@ -112,6 +110,7 @@ public class DespesasControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(405));
 	}
+
 	@Test
 	public void testModificarComDadosIncorretos() throws Exception {
 		URI uri = new URI("/despesas/4");
