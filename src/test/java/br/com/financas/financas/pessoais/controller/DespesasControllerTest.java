@@ -112,5 +112,12 @@ public class DespesasControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(405));
 	}
+	@Test
+	public void testModificarComDadosIncorretos() throws Exception {
+		URI uri = new URI("/despesas/4");
+		String json = "{hahahaxa}";
 
+		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().is(400));
+	}
 }

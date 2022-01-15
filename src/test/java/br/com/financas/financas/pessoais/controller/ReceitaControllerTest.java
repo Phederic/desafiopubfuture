@@ -29,6 +29,7 @@ public class ReceitaControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(201));
 	}
+
 	@Test
 	public void testCadastrarComDadosIncorreto() throws Exception {
 		URI uri = new URI("/receita");
@@ -64,7 +65,7 @@ public class ReceitaControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.delete(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(404));
 	}
-	
+
 	@Test
 	public void testDeletarSemID() throws Exception {
 		URI uri = new URI("/receita");
@@ -73,7 +74,7 @@ public class ReceitaControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.delete(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(405));
 	}
-		
+
 	@Test
 	public void testPesquisarPorID() throws Exception {
 		URI uri = new URI("/receita/2");
@@ -82,7 +83,7 @@ public class ReceitaControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.get(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(200));
 	}
-	
+
 	@Test
 	public void testPesquisarPorIDQueNaoExISTE() throws Exception {
 		URI uri = new URI("/receita/81");
@@ -100,7 +101,7 @@ public class ReceitaControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(200));
 	}
-	
+
 	@Test
 	public void testModificarIdQueNaoExiste() throws Exception {
 		URI uri = new URI("/receita/81");
@@ -109,7 +110,7 @@ public class ReceitaControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(404));
 	}
-	
+
 	@Test
 	public void testModificarSemID() throws Exception {
 		URI uri = new URI("/receita/");
@@ -118,5 +119,12 @@ public class ReceitaControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(405));
 	}
-}
+	@Test
+	public void testModificarComDadosIncorreto() throws Exception {
+		URI uri = new URI("/receita/2");
+		String json = "{fadasddda}";
 
+		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().is(400));
+	}
+}
