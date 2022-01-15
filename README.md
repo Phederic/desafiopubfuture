@@ -2,7 +2,7 @@
 
 API REST criado para o teste da pubfuture
 
-#####Tecnologia utilizadas:
+##### Tecnologia utilizadas:
 - Java
 - Spring boot
 - Insomnia
