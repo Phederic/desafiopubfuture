@@ -61,8 +61,8 @@ public class ContaController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ContaDto> detalhar(@PathVariable Integer contaId) {
-		Optional<Conta> conta = contaRepository.findById(contaId);
+	public ResponseEntity<ContaDto> detalhar(@PathVariable Integer id) {
+		Optional<Conta> conta = contaRepository.findById(id);
 		if (conta.isPresent()) {
 			return ResponseEntity.ok(new ContaDto(conta.get()));
 		}
