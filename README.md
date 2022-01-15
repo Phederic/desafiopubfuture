@@ -1,4 +1,12 @@
-# Teste Proway
+# Teste Proway - desafiopubfuture
 
-### Rodar projeto:
- - git clone https://github.com/Phederic/teste-proway.git
+API REST criado para o teste da pubfuture
+
+Tecnologia utilizadas:
+Java
+Spring boot
+Insomnia
+DBeaver
+MariaDB
+GitHub
+
