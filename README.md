@@ -10,3 +10,4 @@ DBeaver
 MariaDB
 GitHub
 
+Segue a documentação dos endpoint feito com Insomnia : https://pub-future-documentacao.vercel.app/
