@@ -29,6 +29,14 @@ public class ReceitaControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(201));
 	}
+	@Test
+	public void testCadastrarComDadosIncorreto() throws Exception {
+		URI uri = new URI("/receita");
+		String json = "{avwqqwdwqa}";
+
+		mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().is(400));
+	}
 
 	@Test
 	public void testListar() throws Exception {
