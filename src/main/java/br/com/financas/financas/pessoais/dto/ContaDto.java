@@ -61,5 +61,7 @@ public class ContaDto {
 	public static Page<ContaDto> converter(Page<Conta> conta) {
 		return conta.map(ContaDto::new);
 	}
-
+	
+	public ContaDto() {
+	}
 }
