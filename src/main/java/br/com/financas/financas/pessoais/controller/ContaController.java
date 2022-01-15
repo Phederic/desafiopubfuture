@@ -25,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.financas.financas.pessoais.controller.form.AtualizacaoContaForm;
 import br.com.financas.financas.pessoais.controller.form.ContaForm;
+import br.com.financas.financas.pessoais.controller.form.TransferirContaForm;
 import br.com.financas.financas.pessoais.dto.ContaDto;
 import br.com.financas.financas.pessoais.modelo.Conta;
 import br.com.financas.financas.pessoais.modelo.TipoConta;
@@ -97,5 +98,15 @@ public class ContaController {
 		contaRepository.SaldoTotal().ifPresent(conta::setSaldo);
 		return conta.getSaldo();
 	}
-
+	
+	@Transactional	
+	@PostMapping("/transfere")
+	public void Transferir(@PathVariable Integer contaRemetente,@RequestBody @Valid TransferirContaForm transferir) {
+	transferir.contaDestino(contaRemetente, null, contaRepository);
+	transferir.contaRemetente(contaRemetente, null, contaRepository);
+	transferir.transferir(contaRemetente, contaRemetente, null, contaRepository);
+	
+		
+	}
+	
 }
