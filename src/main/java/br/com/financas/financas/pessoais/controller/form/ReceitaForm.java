@@ -2,10 +2,7 @@ package br.com.financas.financas.pessoais.controller.form;
 
 import java.math.BigDecimal;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
 
 import br.com.financas.financas.pessoais.modelo.Conta;
 import br.com.financas.financas.pessoais.modelo.Receita;
@@ -15,9 +12,6 @@ public class ReceitaForm {
 
 	private BigDecimal valor;
 	private TipoReceita tipoReceita;
-	@NotNull
-	@NotEmpty
-	@Length(min = 10)
 	private String descricao;
 	private Conta conta;
 

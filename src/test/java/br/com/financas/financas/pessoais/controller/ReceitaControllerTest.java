@@ -22,12 +22,12 @@ public class ReceitaControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	public void testCadastrarComDadosIncorretos() throws Exception {
+	public void testCadastrarComDados() throws Exception {
 		URI uri = new URI("/receita");
 		String json = "{}";
 
 		mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().is(400));
+				.andExpect(MockMvcResultMatchers.status().is(201));
 	}
 
 	@Test
@@ -49,12 +49,39 @@ public class ReceitaControllerTest {
 	}
 
 	@Test
+	public void testDeletarComIdQueNaoExiste() throws Exception {
+		URI uri = new URI("/receita/80");
+		String json = "{\"/{id}\"}";
+
+		mockMvc.perform(MockMvcRequestBuilders.delete(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().is(404));
+	}
+	
+	@Test
+	public void testDeletarSemID() throws Exception {
+		URI uri = new URI("/receita");
+		String json = "{\"/{id}\"}";
+
+		mockMvc.perform(MockMvcRequestBuilders.delete(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().is(405));
+	}
+		
+	@Test
 	public void testPesquisarPorID() throws Exception {
 		URI uri = new URI("/receita/2");
 		String json = "{\"/{id}\"}";
 
 		mockMvc.perform(MockMvcRequestBuilders.get(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(200));
+	}
+	
+	@Test
+	public void testPesquisarPorIDQueNaoExISTE() throws Exception {
+		URI uri = new URI("/receita/81");
+		String json = "{\"/{id}\"}";
+
+		mockMvc.perform(MockMvcRequestBuilders.get(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().is(404));
 	}
 
 	@Test
@@ -65,4 +92,23 @@ public class ReceitaControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().is(200));
 	}
+	
+	@Test
+	public void testModificarIdQueNaoExiste() throws Exception {
+		URI uri = new URI("/receita/81");
+		String json = "{	\"valor\": 350.00,\r\n" + "		\"descricao\": \"aumentou o preço\"}";
+
+		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().is(404));
+	}
+	
+	@Test
+	public void testModificarSemID() throws Exception {
+		URI uri = new URI("/receita/");
+		String json = "{	\"valor\": 350.00,\r\n" + "		\"descricao\": \"aumentou o preço\"}";
+
+		mockMvc.perform(MockMvcRequestBuilders.put(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().is(405));
+	}
 }
+
