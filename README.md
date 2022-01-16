@@ -13,10 +13,11 @@ API REST criado para o teste da pubfuture
 
 Segue a documentação dos endpoint feito com Insomnia : https://pub-future-documentacao.vercel.app/
 
-###### Para Executar a API : https://github.com/Phederic/teste-proway.git
+###### Para Executar a API :
+- GITCLONE: https://github.com/Phederic/teste-proway.git
 - Com o Maven instalado, no console use o comando mvnw spring-boot:run
 - Acesse http://localhost:8080/receita , http://localhost:8080/conta ou http://localhost:8080/despesas.]
 
-##### Para Executar com IDE
+###### Para Executar com IDE
 - Baixar o arquivo no formato ZIP
 - Importa um arquivo maven.
