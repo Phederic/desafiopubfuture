@@ -15,13 +15,13 @@ Segue a documentação dos endpoint feito com Insomnia : https://pub-future-docu
 
 ###### Para Executar a API :
 - Clone do repositório:
-  ```
-  git clone https://github.com/Phederic/teste-proway.git
-  ```
+ ```
+ git clone https://github.com/Phederic/teste-proway.git
+ ```
 - Com o Maven instalado, no console use o comando: 
-```
-mvnw spring-boot:run
-```
+ ```
+ mvnw spring-boot:run
+ ```
 - Acesse http://localhost:8080/receita , http://localhost:8080/conta ou http://localhost:8080/despesas.]
 
 ###### Para Executar com IDE
