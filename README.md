@@ -3,7 +3,7 @@
 API REST criado para o teste da pubfuture
 
 ##### Tecnologia utilizadas:
-- Java
+- Java (JAVA 11)
 - Spring boot
 - JPA / Hibernate
 - Maven
