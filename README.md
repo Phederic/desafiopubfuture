@@ -5,9 +5,10 @@ API REST criado para o teste da pubfuture
 ##### Tecnologia utilizadas:
 - Java
 - Spring boot
-- Insomnia
-- DBeaver
+- JPA / Hibernate
+- Maven
 - MariaDB
-- GitHub
+- JUnit 4 
+
 
 Segue a documentação dos endpoint feito com Insomnia : https://pub-future-documentacao.vercel.app/
