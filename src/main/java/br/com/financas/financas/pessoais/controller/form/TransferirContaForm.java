@@ -52,8 +52,8 @@ public class TransferirContaForm {
 			ContaRepository contaRepository) {
 		Conta contaDestino = contaRepository.getById(contaDestinoId);
 		Conta contaRemetente = contaRepository.getById(contaRemetenteId);
-		this.contaRemetente(contaRemetenteId, valorTransferido,contaRepository);
-		this.contaDestino(contaDestinoId, valorTransferido,contaRepository);
+		this.contaRemetente(contaRemetenteId, valorTransferido, contaRepository);
+		this.contaDestino(contaDestinoId, valorTransferido, contaRepository);
 
 	}
 

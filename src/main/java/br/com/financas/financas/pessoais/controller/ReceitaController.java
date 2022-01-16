@@ -33,7 +33,7 @@ import br.com.financas.financas.pessoais.modelo.TipoReceita;
 import br.com.financas.financas.pessoais.repository.ReceitaRepository;
 
 @RestController
-@RequestMapping("/receita") 
+@RequestMapping("/receita")
 public class ReceitaController {
 
 	@Autowired

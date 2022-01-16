@@ -98,15 +98,14 @@ public class ContaController {
 		contaRepository.SaldoTotal().ifPresent(conta::setSaldo);
 		return conta.getSaldo();
 	}
-	
-	@Transactional	
+
+	@Transactional
 	@PostMapping("/transfere")
-	public void Transferir(@PathVariable Integer contaRemetente,@RequestBody @Valid TransferirContaForm transferir) {
-	transferir.contaDestino(contaRemetente, null, contaRepository);
-	transferir.contaRemetente(contaRemetente, null, contaRepository);
-	transferir.transferir(contaRemetente, contaRemetente, null, contaRepository);
-	
-		
+	public void Transferir(@PathVariable Integer contaRemetente, @RequestBody @Valid TransferirContaForm transferir) {
+		transferir.contaDestino(contaRemetente, null, contaRepository);
+		transferir.contaRemetente(contaRemetente, null, contaRepository);
+		transferir.transferir(contaRemetente, contaRemetente, null, contaRepository);
+
 	}
-	
+
 }
